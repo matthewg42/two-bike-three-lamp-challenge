@@ -11,6 +11,9 @@
 #include "Config.h"
 #include "Modes.h"
 #include "ModeReset.h"
+#include "ModeRace.h"
+#include "P1Sampler.h"
+#include "P2Sampler.h"
 
 void setup()
 {
@@ -23,16 +26,24 @@ void setup()
         DBLN(F("Loaded settings from EEPROM."));
     }
 
+    P1Sampler.begin();
+    P2Sampler.begin();
+
     CLI.begin(Serial);
 
+    // Init mode objects
     ModeReset.begin();
+    ModeRace.begin();
     
+    // Init mode manager & set poweron start mode
     Modes.begin(&ModeReset);
 }
 
 void loop()
 {
     CLI.update();
+    P1Sampler.update();
+    P2Sampler.update();
     Modes.update();
 }
 

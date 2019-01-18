@@ -6,6 +6,11 @@
 #include "ModeRace.h"
 #include "ModeReset.h"
 #include "GameState.h"
+#include "P1Sampler.h"
+#include "P2Sampler.h"
+#include "StrUtil.h"
+
+uint32_t lastOut = 0;
 
 ModeRaceClass ModeRace;
 
@@ -24,13 +29,26 @@ void ModeRaceClass::modeStop()
 
 void ModeRaceClass::modeUpdate()
 {
-    DBLN(F("Racing..."));
-    GameState.P1Energy += 5;
-    GameState.P2Energy += 5;
+    float P1Pow = P1Sampler.averagePower();
+    float P2Pow = P2Sampler.averagePower();
 
-    //TODO: if (EITHERPLAYERACTIVE) {
-    //    GameState.LastActivity = Millis();
-    //}
+    GameState.P1Energy += (P1Pow * SampleIntervalMs.get() / 1000.0);
+    GameState.P2Energy += (P2Pow * SampleIntervalMs.get() / 1000.0);
+
+    if (DoEvery(1000, lastOut)) {
+        DB(F("RACING ### Player 1: power="));
+        DB(pad(String(P1Pow, 0) + " W", 9));
+        DB(F(" energy="));
+        DB(pad(String(GameState.P1Energy, 0) + " WS", 9));
+        DB(F("     Player 2: power="));
+        DB(pad(String(P2Pow, 0) + " W", 9));
+        DB(F(" energy="));
+        DBLN(pad(String(GameState.P2Energy, 0) + " WS", 9));
+    }
+
+    if (P1Pow > 0 || P2Pow > 0) {
+        GameState.LastActivity = Millis();
+    }
 
     if (MillisSince(GameState.LastActivity) > PauseModeDuration.get() * 1000) {
         Modes.switchMode(&ModeReset);

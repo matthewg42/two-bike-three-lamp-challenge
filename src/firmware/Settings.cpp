@@ -8,10 +8,10 @@ NamedPersistentSetting<uint16_t> WinningWattSeconds    (100,   10000,   1000,   
 NamedPersistentSetting<bool>     InvertLampLogic       (false, true,    true,    "InvertLampLogic");
 NamedPersistentSetting<uint8_t>  PauseModeDuration     (0,     60,      5,       "PauseModeDuration");
 NamedPersistentSetting<uint8_t>  WinModeDuration       (0,     60,      10,      "WinModeDuration");
-NamedPersistentSetting<float>    RTop                  (0,     1e12,   470000,   "RTop");
-NamedPersistentSetting<float>    RBottom               (0,     1e12,   10000,    "RBottom");
-NamedPersistentSetting<float>    RPowerTop             (0,     1e12,   1,        "RPowerTop");
-NamedPersistentSetting<float>    RPowerBottom          (0,     1e12,   3,        "RPowerBottom");
+NamedPersistentSetting<float>    RTop                  (1e-6,  1e12,   470000,   "RTop");
+NamedPersistentSetting<float>    RBottom               (1e-6,  1e12,   10000,    "RBottom");
+NamedPersistentSetting<float>    RPowerTop             (1e-6,  1e12,   1,        "RPowerTop");
+NamedPersistentSetting<float>    RPowerBottom          (1e-6,  1e12,   3,        "RPowerBottom");
 NamedPersistentSetting<float>    DampingAlpha          (0,     1,       0.9,     "DampingAlpha");
 NamedPersistentSetting<uint16_t> SampleIntervalMs      (1,     1000,    50,      "SampleIntervalMs");
 NamedPersistentSetting<float>    VRef                  (1,     20,      3.3,     "VRef");
