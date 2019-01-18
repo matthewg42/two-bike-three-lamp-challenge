@@ -12,8 +12,11 @@
 #include "Modes.h"
 #include "ModeReset.h"
 #include "ModeRace.h"
+#include "ModeWin.h"
 #include "P1Sampler.h"
 #include "P2Sampler.h"
+#include "P1Lamps.h"
+#include "P2Lamps.h"
 
 void setup()
 {
@@ -26,6 +29,9 @@ void setup()
         DBLN(F("Loaded settings from EEPROM."));
     }
 
+    P1Lamps.begin();
+    P2Lamps.begin();
+
     P1Sampler.begin();
     P2Sampler.begin();
 
@@ -34,6 +40,7 @@ void setup()
     // Init mode objects
     ModeReset.begin();
     ModeRace.begin();
+    ModeWin.begin();
     
     // Init mode manager & set poweron start mode
     Modes.begin(&ModeReset);

@@ -7,6 +7,7 @@ extern NamedPersistentSetting<uint16_t> WinningWattSeconds;
 extern NamedPersistentSetting<bool>     InvertLampLogic;
 extern NamedPersistentSetting<uint8_t>  PauseModeDuration;
 extern NamedPersistentSetting<uint8_t>  WinModeDuration;
+extern NamedPersistentSetting<uint16_t> WinModeFlashMs;
 extern NamedPersistentSetting<float>    RTop;
 extern NamedPersistentSetting<float>    RBottom;
 extern NamedPersistentSetting<float>    RPowerTop;
@@ -17,6 +18,7 @@ extern NamedPersistentSetting<float>    VRef;
 extern NamedPersistentSetting<bool>     ExternalVRef;
 extern NamedPersistentSetting<float>    DiodeDrop;
 extern NamedPersistentSetting<float>    DiodeDropZero;
+extern NamedPersistentSetting<bool>     PrintState;
 extern PersistentSetting<uint16_t>      SettingSignature;
 
 // Reset all settings to default values and save them

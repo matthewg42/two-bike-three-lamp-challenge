@@ -8,16 +8,18 @@ NamedPersistentSetting<uint16_t> WinningWattSeconds    (100,   10000,   1000,   
 NamedPersistentSetting<bool>     InvertLampLogic       (false, true,    true,    "InvertLampLogic");
 NamedPersistentSetting<uint8_t>  PauseModeDuration     (0,     60,      5,       "PauseModeDuration");
 NamedPersistentSetting<uint8_t>  WinModeDuration       (0,     60,      10,      "WinModeDuration");
-NamedPersistentSetting<float>    RTop                  (1e-6,  1e12,   470000,   "RTop");
-NamedPersistentSetting<float>    RBottom               (1e-6,  1e12,   10000,    "RBottom");
-NamedPersistentSetting<float>    RPowerTop             (1e-6,  1e12,   1,        "RPowerTop");
-NamedPersistentSetting<float>    RPowerBottom          (1e-6,  1e12,   3,        "RPowerBottom");
+NamedPersistentSetting<uint16_t> WinModeFlashMs        (10,    1000,    200,     "WinModeFlashMs");
+NamedPersistentSetting<float>    RTop                  (1e-3,  1e12,    470000,   "RTop");
+NamedPersistentSetting<float>    RBottom               (1e-3,  1e12,    10000,    "RBottom");
+NamedPersistentSetting<float>    RPowerTop             (1e-3,  1e12,    1,        "RPowerTop");
+NamedPersistentSetting<float>    RPowerBottom          (1e-3,  1e12,    3,        "RPowerBottom");
 NamedPersistentSetting<float>    DampingAlpha          (0,     1,       0.9,     "DampingAlpha");
 NamedPersistentSetting<uint16_t> SampleIntervalMs      (1,     1000,    50,      "SampleIntervalMs");
 NamedPersistentSetting<float>    VRef                  (1,     20,      3.3,     "VRef");
 NamedPersistentSetting<bool>     ExternalVRef          (false, true,    true,    "ExternalVRef");
 NamedPersistentSetting<float>    DiodeDrop             (0,     20,      1.4,     "DiodeDrop");
 NamedPersistentSetting<float>    DiodeDropZero         (0,     1,       0.001,   "DiodeDropZero");
+NamedPersistentSetting<bool>     PrintState            (false, true,    false,   "PrintState");
 PersistentSetting<uint16_t>      SettingSignature      (0,     UINT16_MAX, MagicNumber);
 
 void factoryReset(Stream& s)
@@ -26,6 +28,7 @@ void factoryReset(Stream& s)
     InvertLampLogic.reset(true);
     PauseModeDuration.reset(true);
     WinModeDuration.reset(true);
+    WinModeFlashMs.reset(true);
     RTop.reset(true);
     RBottom.reset(true);
     RPowerTop.reset(true);
@@ -36,6 +39,7 @@ void factoryReset(Stream& s)
     ExternalVRef.reset(true);
     DiodeDrop.reset(true);
     DiodeDropZero.reset(true);
+    PrintState.reset(true);
     SettingSignature.reset(true);
     s.println(F("Settings reset to defaults"));
 }
@@ -60,6 +64,7 @@ void dumpSettings(Stream& s)
     DUMP_SETTING(InvertLampLogic);
     DUMP_SETTING(PauseModeDuration);
     DUMP_SETTING(WinModeDuration);
+    DUMP_SETTING(WinModeFlashMs);
     DUMP_SETTING(RTop);
     DUMP_SETTING(RBottom);
     DUMP_SETTING(RPowerTop);
@@ -70,6 +75,7 @@ void dumpSettings(Stream& s)
     DUMP_SETTING(ExternalVRef);
     DUMP_SETTING(DiodeDrop);
     DUMP_SETTING(DiodeDropZero);
+    DUMP_SETTING(PrintState);
 
 #undef DUMP_SETTING
 }

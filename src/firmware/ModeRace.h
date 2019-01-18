@@ -6,8 +6,10 @@ class ModeRaceClass : public Mode {
 public:
     ModeRaceClass();
     void modeStart();
-    void modeStop();
     void modeUpdate();
+
+private:
+    uint32_t _lastOut;
 
 };
 
