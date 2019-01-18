@@ -38,6 +38,7 @@ void CLIClass::runCmd()
         dumpSettings(*_stream);
     } else if (cmd == "r") {
         factoryReset(*_stream);
+        samplerUpdate = true;
     } else if (cmd == "p") {
         PrintState.set(!PrintState.get());
     } else if (cmd == WinningWattSeconds.getName()) {
