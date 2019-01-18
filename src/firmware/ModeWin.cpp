@@ -27,20 +27,36 @@ void ModeWinClass::modeStart()
 void ModeWinClass::updateLamps()
 {
     bool p = PrintState.get();
-    if (p) { Serial.print("ModeWin: "); }
+    if (p) { 
+        Serial.print(F("ModeWin: P1=")); 
+        Serial.print(GameState.P1Energy, 3);
+        Serial.print("Ws [");
+    }
+
     if (_p1Win && _flash) {
         P1Lamps.setBar(LampCount);
-        if (p) { Serial.print(F("P1[***]   ")); }
+        if (p) { Serial.print(F("***")); }
     } else {
         P1Lamps.setBar(0);
-        if (p) { Serial.print(F("P1[   ]   ")); }
+        if (p) { Serial.print(F("   ")); }
     }
+
+    if (p) { 
+        Serial.print(F("]   P2=")); 
+        Serial.print(GameState.P2Energy, 3);
+        Serial.print("Ws [");
+    }
+
     if (_p2Win && _flash) {
         P2Lamps.setBar(LampCount);
-        if (p) { Serial.println(F("P2[***]")); }
+        if (p) { Serial.print(F("***")); }
     } else {
         P2Lamps.setBar(0);
-        if (p) { Serial.println(F("P2[   ]")); }
+        if (p) { Serial.print(F("   ")); }
+    }
+
+    if (p) { 
+        Serial.println(']');
     }
 }
 

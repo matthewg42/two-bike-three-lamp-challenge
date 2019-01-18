@@ -38,19 +38,19 @@ void ModeRaceClass::modeUpdate()
     uint8_t P1LampCount = ((uint32_t)GameState.P1Energy * (uint32_t)LampCount) / (uint32_t)WinningWattSeconds.get();
     uint8_t P2LampCount = ((uint32_t)GameState.P2Energy * (uint32_t)LampCount) / (uint32_t)WinningWattSeconds.get();
 
-    if (PrintState.get() && DoEvery(500, _lastOut)) {
+    if (PrintState.get() && DoEvery(PrintStateMs.get(), _lastOut)) {
         Serial.print(F("ModeRace: win="));
         Serial.print(WinningWattSeconds.get());
         Serial.print(F(" P1: power="));
-        Serial.print(pad(String(P1Pow, 0) + "W", 9));
+        Serial.print(pad(String((long)P1Pow) + "W", 9));
         Serial.print(F(" energy="));
-        Serial.print(pad(String(GameState.P1Energy, 0) + "WS", 9));
+        Serial.print(pad(String((long)GameState.P1Energy) + "Ws", 9));
         Serial.print(F(" lamps="));
         Serial.print(P1LampCount);
         Serial.print(F("     P2: power="));
-        Serial.print(pad(String(P2Pow, 0) + "W", 9));
+        Serial.print(pad(String((long)P2Pow) + "W", 9));
         Serial.print(F(" energy="));
-        Serial.print(pad(String(GameState.P2Energy, 0) + "WS", 9));
+        Serial.print(pad(String((long)GameState.P2Energy) + "Ws", 9));
         Serial.print(F(" lamps="));
         Serial.println(P2LampCount);
     }

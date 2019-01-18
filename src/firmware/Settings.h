@@ -19,6 +19,7 @@ extern NamedPersistentSetting<bool>     ExternalVRef;
 extern NamedPersistentSetting<float>    DiodeDrop;
 extern NamedPersistentSetting<float>    DiodeDropZero;
 extern NamedPersistentSetting<bool>     PrintState;
+extern NamedPersistentSetting<uint16_t> PrintStateMs;
 extern PersistentSetting<uint16_t>      SettingSignature;
 
 // Reset all settings to default values and save them

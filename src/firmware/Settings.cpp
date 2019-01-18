@@ -9,10 +9,10 @@ NamedPersistentSetting<bool>     InvertLampLogic       (false, true,    true,   
 NamedPersistentSetting<uint8_t>  PauseModeDuration     (0,     60,      5,       "PauseModeDuration");
 NamedPersistentSetting<uint8_t>  WinModeDuration       (0,     60,      10,      "WinModeDuration");
 NamedPersistentSetting<uint16_t> WinModeFlashMs        (10,    1000,    200,     "WinModeFlashMs");
-NamedPersistentSetting<float>    RTop                  (1e-3,  1e12,    470000,   "RTop");
-NamedPersistentSetting<float>    RBottom               (1e-3,  1e12,    10000,    "RBottom");
-NamedPersistentSetting<float>    RPowerTop             (1e-3,  1e12,    1,        "RPowerTop");
-NamedPersistentSetting<float>    RPowerBottom          (1e-3,  1e12,    3,        "RPowerBottom");
+NamedPersistentSetting<float>    RTop                  (1e-2,  1e12,    470000,   "RTop");
+NamedPersistentSetting<float>    RBottom               (1e-2,  1e12,    10000,    "RBottom");
+NamedPersistentSetting<float>    RPowerTop             (1e-2,  1e12,    1,        "RPowerTop");
+NamedPersistentSetting<float>    RPowerBottom          (1e-2,  1e12,    3,        "RPowerBottom");
 NamedPersistentSetting<float>    DampingAlpha          (0,     1,       0.9,     "DampingAlpha");
 NamedPersistentSetting<uint16_t> SampleIntervalMs      (1,     1000,    50,      "SampleIntervalMs");
 NamedPersistentSetting<float>    VRef                  (1,     20,      3.3,     "VRef");
@@ -20,6 +20,7 @@ NamedPersistentSetting<bool>     ExternalVRef          (false, true,    true,   
 NamedPersistentSetting<float>    DiodeDrop             (0,     20,      1.4,     "DiodeDrop");
 NamedPersistentSetting<float>    DiodeDropZero         (0,     1,       0.001,   "DiodeDropZero");
 NamedPersistentSetting<bool>     PrintState            (false, true,    false,   "PrintState");
+NamedPersistentSetting<uint16_t> PrintStateMs          (50,    10000,   1000,    "PrintStateMs");
 PersistentSetting<uint16_t>      SettingSignature      (0,     UINT16_MAX, MagicNumber);
 
 void factoryReset(Stream& s)
@@ -40,6 +41,7 @@ void factoryReset(Stream& s)
     DiodeDrop.reset(true);
     DiodeDropZero.reset(true);
     PrintState.reset(true);
+    PrintStateMs.reset(true);
     SettingSignature.reset(true);
     s.println(F("Settings reset to defaults"));
 }
@@ -76,6 +78,7 @@ void dumpSettings(Stream& s)
     DUMP_SETTING(DiodeDrop);
     DUMP_SETTING(DiodeDropZero);
     DUMP_SETTING(PrintState);
+    DUMP_SETTING(PrintStateMs);
 
 #undef DUMP_SETTING
 }
