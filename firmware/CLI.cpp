@@ -31,6 +31,7 @@ void CLIClass::runCmd()
           F("Commands:\n"
             "h - (re) print this help message, and current settings\n"
             "p - toggle printing game state (alter PrintState without save)\n"
+            "P - toggle printing power calculations (alter PrintPower without save)\n"
             "r - reset settings to defaults\n\n"
             "To set the value of individual settings enter the name of the setting,\n"
             "a space and the new value for the setting, for example:\n\n"
@@ -41,6 +42,8 @@ void CLIClass::runCmd()
         samplerUpdate = true;
     } else if (cmd == "p") {
         PrintState.set(!PrintState.get());
+    } else if (cmd == "P") {
+        PrintPower.set(!PrintPower.get());
     } else if (cmd == WinningWattSeconds.getName()) {
         WinningWattSeconds.set(String(_buf+i).toInt());
         WinningWattSeconds.save();
@@ -87,6 +90,11 @@ void CLIClass::runCmd()
     } else if (cmd == ExternalVRef.getName()) {
         ExternalVRef.set(String(_buf+i).toInt());
         ExternalVRef.save();
+        if (ExternalVRef.get()) {
+            analogReference(EXTERNAL);
+        } else {
+            analogReference(INTERNAL);
+        }   
     } else if (cmd == DiodeDrop.getName()) {
         DiodeDrop.set(String(_buf+i).toFloat());
         DiodeDrop.save();
@@ -99,6 +107,12 @@ void CLIClass::runCmd()
     } else if (cmd == PrintStateMs.getName()) {
         PrintStateMs.set(String(_buf+i).toInt());
         PrintStateMs.save();
+    } else if (cmd == PrintPower.getName()) {
+        PrintPower.set(String(_buf+i).toInt());
+        PrintPower.save();
+    } else if (cmd == PrintPowerMs.getName()) {
+        PrintPowerMs.set(String(_buf+i).toInt());
+        PrintPowerMs.save();
     } else {
         _stream->println(F("invalid command"));
     }

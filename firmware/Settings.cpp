@@ -4,11 +4,11 @@
 
 // Game-wide persistent settings backed by EEPROM
 //                                                      min    max      default  name
-NamedPersistentSetting<uint16_t> WinningWattSeconds    (100,   10000,   1000,    "WinningWattSeconds");
+NamedPersistentSetting<uint32_t> WinningWattSeconds    (100,   100000,  1000,    "WinningWattSeconds");
 NamedPersistentSetting<bool>     InvertLampLogic       (false, true,    true,    "InvertLampLogic");
 NamedPersistentSetting<uint8_t>  PauseModeDuration     (0,     60,      5,       "PauseModeDuration");
-NamedPersistentSetting<uint8_t>  WinModeDuration       (0,     60,      10,      "WinModeDuration");
-NamedPersistentSetting<uint16_t> WinModeFlashMs        (10,    1000,    200,     "WinModeFlashMs");
+NamedPersistentSetting<uint16_t> WinModeDuration       (0,     600,     10,      "WinModeDuration");
+NamedPersistentSetting<uint32_t> WinModeFlashMs        (10,    600000,  200,     "WinModeFlashMs");
 NamedPersistentSetting<float>    RTop                  (1e-2,  1e12,    470000,   "RTop");
 NamedPersistentSetting<float>    RBottom               (1e-2,  1e12,    10000,    "RBottom");
 NamedPersistentSetting<float>    RPowerTop             (1e-2,  1e12,    1,        "RPowerTop");
@@ -21,6 +21,8 @@ NamedPersistentSetting<float>    DiodeDrop             (0,     20,      1.4,    
 NamedPersistentSetting<float>    DiodeDropZero         (0,     1,       0.001,   "DiodeDropZero");
 NamedPersistentSetting<bool>     PrintState            (false, true,    false,   "PrintState");
 NamedPersistentSetting<uint16_t> PrintStateMs          (50,    10000,   1000,    "PrintStateMs");
+NamedPersistentSetting<bool>     PrintPower            (false, true,    false,   "PrintPower");
+NamedPersistentSetting<uint16_t> PrintPowerMs          (50,    10000,   500,     "PrintPowerMs");
 PersistentSetting<uint16_t>      SettingSignature      (0,     UINT16_MAX, MagicNumber);
 
 void factoryReset(Stream& s)
@@ -42,6 +44,8 @@ void factoryReset(Stream& s)
     DiodeDropZero.reset(true);
     PrintState.reset(true);
     PrintStateMs.reset(true);
+    PrintPower.reset(true);
+    PrintPowerMs.reset(true);
     SettingSignature.reset(true);
     s.println(F("Settings reset to defaults"));
 }
@@ -79,6 +83,8 @@ void dumpSettings(Stream& s)
     DUMP_SETTING(DiodeDropZero);
     DUMP_SETTING(PrintState);
     DUMP_SETTING(PrintStateMs);
+    DUMP_SETTING(PrintPower);
+    DUMP_SETTING(PrintPowerMs);
 
 #undef DUMP_SETTING
 }

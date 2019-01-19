@@ -29,6 +29,12 @@ void setup()
         DBLN(F("Loaded settings from EEPROM."));
     }
 
+    if (ExternalVRef.get()) {
+        analogReference(EXTERNAL);
+    } else {
+        analogReference(INTERNAL);
+    }
+
     P1Lamps.begin();
     P2Lamps.begin();
 

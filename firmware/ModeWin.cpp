@@ -17,10 +17,14 @@ ModeWinClass::ModeWinClass()
 
 void ModeWinClass::modeStart()
 {
+    if (PrintState.get()) {
+        Serial.println(F("ModeWin"));
+    }
     _modeStartMs = Millis();
     _p1Win = GameState.P1Energy >= WinningWattSeconds.get();
     _p2Win = GameState.P2Energy >= WinningWattSeconds.get();
     _flash = true;
+    updateLamps();
     _lastDisplayMs = Millis();
 }
 
